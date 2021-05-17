@@ -19,18 +19,33 @@ const ShoppingCart = () => {
 
         <tbody>
           <tr>
-            <td>Product number 1</td>
-            <td><input type="number" name="quantity" value="1" /></td>
+            <td>
+              Product number 1
+              <i className="fas fa-info-circle"></i>
+            </td>
+            <td>
+              <input type="number" name="quantity" value="1" />
+            </td>
             <td className={styles.right}>$120.00</td>
           </tr>
           <tr>
-            <td>Product number 2</td>
-            <td><input type="number" name="quantity" value="3" /></td>
+            <td>
+              Product number 2
+              <i className="fas fa-info-circle"></i>
+            </td>
+            <td>
+              <input type="number" name="quantity" value="3" />
+            </td>
             <td className={styles.right}>$120.00</td>
           </tr>
           <tr>
-            <td>Product number 2</td>
-            <td><input type="number" name="quantity" value="3" /></td>
+            <td>
+              Product number 2
+              <i className="fas fa-info-circle"></i>
+            </td>
+            <td>
+              <input type="number" name="quantity" value="3" />
+            </td>
             <td className={styles.right}>$120.00</td>
           </tr>
 
@@ -38,7 +53,7 @@ const ShoppingCart = () => {
 
         <tfoot>
           <tr>
-            <td colspan="3">Total: $120.00</td>
+            <td colSpan="3">Total: $120.00</td>
           </tr>
         </tfoot>
 

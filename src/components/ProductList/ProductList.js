@@ -3,12 +3,22 @@ import Product from './Product/Product'
 
 import styles from './ProductList.module.scss'
 
-const ProductList = () => {
+const ProductList = (props) => {
+
+  const products = props.products
+    .sort((a, b) => b.price - a.price)
+    .map(product => {
+    return (
+      <Product 
+        product={product}
+        key={product.id}
+      />
+    )
+  })
+
   return (
     <section className={styles.productList}>
-      <Product />
-      <Product />
-      <Product />
+      {products}
     </section>
 
   )

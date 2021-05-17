@@ -1,7 +1,17 @@
+@import '/src/assets/breakpoints';
+
 .App {
   width: 80vw;
   margin: auto;
   margin-top: 10rem;
+  @media (max-width: $sm) {
+    width: 95vw;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: $md) {
+    width: 90vw;
+  }
 }
 
 h1 {

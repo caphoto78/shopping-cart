@@ -12,6 +12,9 @@
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05), 0 4px 9px 0 rgba(0, 0, 0, 0.05);
   .productName {
     flex: 1;
+    @media (max-width: $xl) {
+    flex: .8;
+  }
   }
   .productPrice {
     flex: .3;
@@ -22,11 +25,7 @@
   span {
     color: #3490e7;
   }
-  img {
-    flex: .5;
-    width: 1.7em;
-    line-height: 100%;
-    vertical-align: middle;
+  i {
     margin-right: .5em;
   }
 }
@@ -50,5 +49,6 @@
   }
   @media (max-width: $xl) {
     font-size: 1.5rem;
+    padding: .6em 1em;
   }
 }
