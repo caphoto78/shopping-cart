@@ -1,0 +1,83 @@
+@import '/src/assets/breakpoints';
+
+.shoppingCart {
+  margin-left: 30px;
+  flex: .8;
+  padding: 3.5rem 3.2rem;
+  background-color: #f0f3f8;
+  border: 2px solid #e1e5ee;
+  @media (max-width: $lg) {
+    margin-left: 0;
+    margin-top: 30px;
+  }
+  h2 {
+    font-weight: 400;
+  }
+}
+
+ table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  margin-top: 4rem;
+
+  input {
+    padding: 8px;
+    width:60px;
+  }
+
+  .right {
+    text-align: right;
+  }
+
+  .tableHeader {
+    border-bottom: 1px solid #e2e5ec;
+    height: 5rem;
+    th {
+      font-weight: 300;
+    }
+  }
+  
+  td {
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 1.5rem 0;
+  }
+  tfoot {
+    text-align: right;
+    border-top: 2px solid #3a495e;
+    td {
+      font-size: 2rem;
+    }
+  } 
+}
+
+.button {
+  flex: .5;
+  font-size: 1.6rem;
+  font-weight: 700;
+  border: none;
+  background-color: #15a136;
+  color: white;
+  padding: .6em 1em;
+  transition: background-color 0.2s ease-in;
+  border-radius: 5px;
+  margin-left: 20px;
+  &:hover {
+    background-color: #2fc152;
+  }
+  &:focus {
+    outline:none;
+  }
+  @media (max-width: $xl) {
+    font-size: 1.5rem;
+  }
+}
+
+.big {
+  font-size: 2.3rem;
+  font-weight: 400;
+  width: 100%;
+  margin: 0;
+  margin-top: 10px;
+}

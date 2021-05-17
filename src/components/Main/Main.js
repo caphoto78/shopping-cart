@@ -3,9 +3,9 @@ import styles from './Main.module.scss'
 
 const Main = (props) => {
   return (
-    <div className={styles.contentContainer} {...props}>
+    <main className={styles.contentContainer} {...props}>
       {props.children}
-    </div>
+    </main>
   )
 }
 

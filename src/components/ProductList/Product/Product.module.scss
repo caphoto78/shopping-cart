@@ -1,0 +1,54 @@
+@import '/src/assets/breakpoints';
+
+.product {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  padding: 1.2rem 1.5rem;
+  font-size: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05), 0 4px 9px 0 rgba(0, 0, 0, 0.05);
+  .productName {
+    flex: 1;
+  }
+  .productPrice {
+    flex: .3;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+  
+  span {
+    color: #3490e7;
+  }
+  img {
+    flex: .5;
+    width: 1.7em;
+    line-height: 100%;
+    vertical-align: middle;
+    margin-right: .5em;
+  }
+}
+
+.button {
+  flex: .5;
+  font-size: 1.6rem;
+  font-weight: 700;
+  border: none;
+  background-color: #15a136;
+  color: white;
+  padding: .6em 1em;
+  transition: background-color 0.2s ease-in;
+  border-radius: 5px;
+  margin-left: 20px;
+  &:hover {
+    background-color: #2fc152;
+  }
+  &:focus {
+    outline:none;
+  }
+  @media (max-width: $xl) {
+    font-size: 1.5rem;
+  }
+}

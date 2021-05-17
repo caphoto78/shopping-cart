@@ -4,3 +4,17 @@
   margin-top: 10rem;
 }
 
+h1 {
+  font-weight: 300;
+  position: relative;
+  margin-bottom: 5rem;
+  &::before {
+    content: '';
+    width: 4.4rem;
+    height: 3px;
+    background-color: #3490e7;
+    position: absolute;
+    bottom: -1.5rem;
+    left: 0;
+  }
+}
