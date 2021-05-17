@@ -1,0 +1,9 @@
+@import '/src/assets/breackpoints';
+
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  @media (max-width: $lg) {
+    flex-direction: column;
+  }
+}
