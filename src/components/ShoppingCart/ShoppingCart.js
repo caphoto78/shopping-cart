@@ -11,6 +11,8 @@ const ShoppingCart = (props) => {
         key={index}
         prod={prod}
         onDelete={(payload)=>props.onDelete(payload)}
+        onQuantityInput={(priceAll)=>props.onQuantityInput(priceAll)}
+        // qty={props.qty}
       ></TableBody>
     )
   })

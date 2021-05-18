@@ -1,9 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styles from './TableBody.module.scss'
 
 const TableBody = (props) => {
 
   const [isShown, setIsShown] = useState(false)
+  const [quantity, setQuantity] = useState(1)
+
+  useEffect(() => {
+    props.onQuantityInput(quantity)
+  }, [quantity, props])
 
   const handleMouseEnter = () => {
     setIsShown(true)
@@ -15,6 +20,10 @@ const TableBody = (props) => {
 
   const handleDelete = () => {
       props.onDelete(props.prod.id)
+  }
+
+  const quantityHandler = (e) => {
+    setQuantity(e.target.value)
   }
 
   return (
@@ -38,7 +47,13 @@ const TableBody = (props) => {
           </div>
         </td>
         <td>
-          <input type="number" name="quantity" value="1" />
+          <input 
+            type="number"
+            name="quantity"
+            min="1"
+            value={quantity}
+            onChange={(e)=>quantityHandler(e)}
+          />
         </td>
         <td className={styles.right}>${props.prod.price}</td>
       </tr>
