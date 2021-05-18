@@ -1,65 +1,63 @@
 import React from 'react'
 import styles from './ShoppingCart.module.scss'
+import TableBody from './TableBody/TableBody'
 
-const ShoppingCart = () => {
+const ShoppingCart = (props) => {
+
+
+  const productsAddedToCart = props.cart.map((prod, index) => {
+    return (
+      <TableBody
+        key={index}
+        prod={prod}
+        onDelete={(payload)=>props.onDelete(payload)}
+      ></TableBody>
+    )
+  })
+
+  const shoppincCart = () => {
+    if (props.cart.length!==0) {
+      return (
+        <section className={styles.shoppingCart}>
+          <div className={styles.cartTitle}>
+            <h2>Products in your shopping cart</h2>
+          </div>
+
+          <table className={styles.cartContent}>
+            <thead>
+              <tr className={styles.tableHeader}>
+                <th>Remove</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th className={styles.right}>Value</th>
+              </tr>
+            </thead>
+
+            {productsAddedToCart}
+
+            <tfoot>
+              <tr>
+                <td colSpan="4">Total: ${props.total.toFixed(2)}</td>
+              </tr>
+            </tfoot>
+
+          </table>
+          <button className={`${styles.button} ${styles.big}`}>Continue</button>
+        </section>
+      )
+    } else {
+      return (
+        <section className={styles.shoppingCart}>
+          <div className={styles.cartTitle}>
+            <h2>No products in your shopping cart</h2>
+          </div>
+        </section>
+      )
+    }
+  }
+
   return (
-    <section className={styles.shoppingCart}>
-      <div className={styles.cartTitle}>
-        <h2>Products in your shopping cart</h2>
-      </div>
-
-      <table className={styles.cartContent}>
-        <thead>
-          <tr className={styles.tableHeader}>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th className={styles.right}>Value</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>
-              Product number 1
-              <i className="fas fa-info-circle"></i>
-            </td>
-            <td>
-              <input type="number" name="quantity" value="1" />
-            </td>
-            <td className={styles.right}>$120.00</td>
-          </tr>
-          <tr>
-            <td>
-              Product number 2
-              <i className="fas fa-info-circle"></i>
-            </td>
-            <td>
-              <input type="number" name="quantity" value="3" />
-            </td>
-            <td className={styles.right}>$120.00</td>
-          </tr>
-          <tr>
-            <td>
-              Product number 2
-              <i className="fas fa-info-circle"></i>
-            </td>
-            <td>
-              <input type="number" name="quantity" value="3" />
-            </td>
-            <td className={styles.right}>$120.00</td>
-          </tr>
-
-        </tbody>
-
-        <tfoot>
-          <tr>
-            <td colSpan="3">Total: $120.00</td>
-          </tr>
-        </tfoot>
-
-      </table>
-      <button className={`${styles.button} ${styles.big}`}>Continue</button>
-    </section>
+    shoppincCart()
   )
 }
 

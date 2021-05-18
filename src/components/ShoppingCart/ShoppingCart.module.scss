@@ -37,16 +37,8 @@
       font-weight: 300;
     }
   }
+
   
-  td {
-    font-size: 1.5rem;
-    font-weight: 500;
-    padding: 1.5rem 0;
-    i {
-      color: #bcc0c9;
-      margin: 0 .4em;
-    }
-  }
   tfoot {
     text-align: right;
     border-top: 2px solid #3a495e;
@@ -67,6 +59,7 @@
   transition: background-color 0.2s ease-in;
   border-radius: 5px;
   margin-left: 20px;
+  cursor: pointer;
   &:hover {
     background-color: #2fc152;
   }

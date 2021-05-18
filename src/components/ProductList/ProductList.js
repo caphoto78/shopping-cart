@@ -4,21 +4,26 @@ import Product from './Product/Product'
 import styles from './ProductList.module.scss'
 
 const ProductList = (props) => {
-
-  const products = props.products
+  
+const products = () => {
+  if (props.products) {
+  return props.products
     .sort((a, b) => b.price - a.price)
-    .map(product => {
-    return (
-      <Product 
-        product={product}
-        key={product.id}
-      />
-    )
-  })
+    .map((product, index) => {
+     return (
+       <Product 
+         product={product}
+         key={index}
+         addToCart={(id)=>props.addToCart(id)}
+       />
+     )
+   })
+  }
+}
 
   return (
     <section className={styles.productList}>
-      {products}
+      {products()}
     </section>
 
   )

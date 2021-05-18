@@ -1,0 +1,56 @@
+.product{
+    position: relative;
+    .hidden {
+      display: none;
+    }
+    .bubble {
+      position: absolute;
+      background-color: white;
+      border-radius: 5px;
+      width: auto;
+      z-index: 100;
+      padding: 15px;
+      top: 5px;
+      left: 170px;
+      font-size: 1.2rem;
+      line-height: 1.7rem;
+      min-width: 200px;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05), 0 4px 9px 0 rgba(0, 0, 0, 0.05);
+      &::before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        width: 0; 
+        height: 0; 
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent; 
+        
+        border-right:10px solid white;
+      }
+
+    }
+  }
+  .remove {
+    i {
+      transition: all .250s ease-in-out;
+      cursor: pointer;
+    }
+    &:hover {
+      i {
+        color: red;
+      }
+    }
+  }
+  td {
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 1.5rem 0;
+    i {
+      color: #bcc0c9;
+      margin: 0 .4em;
+    }
+  }
+
+  .right {
+    text-align: right;
+  }
