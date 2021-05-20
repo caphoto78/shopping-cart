@@ -3,15 +3,20 @@ import styles from './TableBody.module.scss'
 
 const TableBody = (props) => {
 
+  console.log('PROPS PROD COUNT:::', props.prod.count)
+  
   const [isShown, setIsShown] = useState(false)
   const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
-    props.onQuantityInput(quantity)
+    props.onQuantityInput(quantity, props.prod)
+    
   }, [quantity, props])
 
   const handleMouseEnter = () => {
-    setIsShown(true)
+    if(props.prod.description) {
+      setIsShown(true)
+    }
   }
 
   const handleMouseLeave = () => {
@@ -50,12 +55,12 @@ const TableBody = (props) => {
           <input 
             type="number"
             name="quantity"
-            min="1"
-            value={quantity}
+            min="0"
+            value={props.prod.count}
             onChange={(e)=>quantityHandler(e)}
           />
         </td>
-        <td className={styles.right}>${props.prod.price}</td>
+        <td className={styles.right}>{props.prod.count}x${props.prod.price.toFixed(2)}</td>
       </tr>
     </tbody>
   )

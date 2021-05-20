@@ -8,38 +8,32 @@ import axios from 'axios';
 const App = () => {
 
   const [products, setProducts] = useState([])
-  const [cart, setCart] = useState([])
+  const [cartItems, setCartItems] = useState([])
   const [total, setTotal] = useState(0)
-  const [qty, setQty] = useState(1)
+  // const [id, setId] = useState(0)
 
-  //HANDLE ADD TO CART BUTTON
-  const addToCart = (id) => {
-    const productToAdd = products.filter(product => product.id === id)
-    setCart(prevState => [...prevState, productToAdd[0]])
-    setProducts(prevState => prevState.filter(product => product.id!==id))
-    setTotal(prevState => prevState+(productToAdd[0].price*qty))
-    console.log('qty ', qty)
-  }
-
-/*   const getTotal = () => {
-    const prices = cart.map(item => item.price*qty)
-    console.log(prices)
-    if (cart.length !== 0) {
-      setTotal(prices.reduce((acc, val)=> {
-        return acc + val
-      }))
-    }
-  }
+  console.log(products)
+  console.log('TOOOTAAAALLL: ', total)
+  console.log('CAAAARRRTTTT: ', cartItems)
 
   useEffect(() => {
-    getTotal()
-  }, [getTotal]) */
+    setTotal(cartItems.reduce((sum,el) => {
+      return sum + el.count*el.price
+    }, 0))
+  }, [cartItems])
 
   //GET THE PRODUCTS FROM THE EXTERNAL API
   const getProducts = useCallback(async () => {
     try {
       let response = await axios.get('http://private-32dcc-products72.apiary-mock.com/product')
-      setProducts(response.data)
+      setProducts(response.data
+        .map(item => {
+        return {
+          ...item,
+          count: 0,
+        }
+      })
+      )
     }
     catch (error) {
       console.log('Error', error);
@@ -50,17 +44,31 @@ const App = () => {
       getProducts()
     }, [getProducts])
 
-    const deleteHandler = (id) => {
-      const productToRemove = cart.filter(product => product.id === id)
-      setProducts(prevState => [...prevState, productToRemove[0]])
-      setCart(prevState => prevState.filter(product => product.id!==id))
-      setTotal(prevState => prevState-(productToRemove[0].price*qty))
-    }
+    //  ********** HANDLE ADD TO CART BUTTON ************
+  const addToCart = (item) => {
+    const productToAdd = products.filter(product => product.id === item.id)
+    setCartItems(prevState => [...prevState, {...productToAdd[0], count: 1}])
+    setProducts(prevState => prevState.filter(product => product.id!==item.id))
+  }
 
-    const quantityInputHandler = (qty) => {
-      setQty(qty)
-    }
+  // ********** HANDLE DELETE FROM CART ************
+  const deleteHandler = (id) => {
+    const productToRemove = cartItems.filter(product => product.id === id)
+    setProducts(prevState => [...prevState, {...productToRemove[0], count: 0}])
+    setCartItems(prevState => prevState.filter(product => product.id!==id))
+  }
 
+    
+    const quantityInputHandler = useCallback((qty, item) => {
+      console.log('QTY: ', qty, 'ID: ', item, 'CART ITEMS: ', cartItems)
+      const exist = cartItems.find(x=>x.id===item.id)
+      if (exist.count!==qty) {
+        setCartItems(
+          cartItems.map(x =>
+            x.id === item.id ? {...item, count: qty} : x)
+        )
+      }
+    }, [cartItems])
 
   return (
     <div className="App">
@@ -71,11 +79,10 @@ const App = () => {
           addToCart={(id)=>addToCart(id)}
         />
         <ShoppingCart 
-          cart={cart}
+          cartItems={cartItems}
           total={total}
           onDelete={(id) => deleteHandler(id)}
-          onQuantityInput={(qty)=>quantityInputHandler(qty)}
-          qty={qty}
+          onQuantityInput={(qty, id)=>quantityInputHandler(qty, id)}
         />
       </Main>
     </div>

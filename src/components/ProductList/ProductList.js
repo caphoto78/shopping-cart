@@ -14,7 +14,7 @@ const products = () => {
        <Product 
          product={product}
          key={index}
-         addToCart={(id)=>props.addToCart(id)}
+         addToCart={(item)=>props.addToCart(item)}
        />
      )
    })

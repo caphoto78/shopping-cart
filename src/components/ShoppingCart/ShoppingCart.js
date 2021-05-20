@@ -4,21 +4,23 @@ import TableBody from './TableBody/TableBody'
 
 const ShoppingCart = (props) => {
 
+  const {cartItems} = props
 
-  const productsAddedToCart = props.cart.map((prod, index) => {
+
+
+  const productsAddedToCart = cartItems.map((prod, index) => {
     return (
       <TableBody
         key={index}
         prod={prod}
         onDelete={(payload)=>props.onDelete(payload)}
-        onQuantityInput={(priceAll)=>props.onQuantityInput(priceAll)}
-        // qty={props.qty}
+        onQuantityInput={(qty, id)=>props.onQuantityInput(qty, id)}
       ></TableBody>
     )
   })
 
   const shoppincCart = () => {
-    if (props.cart.length!==0) {
+    if (cartItems.length>0) {
       return (
         <section className={styles.shoppingCart}>
           <div className={styles.cartTitle}>
