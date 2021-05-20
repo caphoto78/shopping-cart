@@ -13,15 +13,12 @@ const App = () => {
   const [currency, setCurrency] = useState('USD')
   const [rates, setRates] = useState({})
 
-  console.log(rates)
-  console.log(currency)
 
   const API_KEY = process.env.REACT_APP_API_KEY;
   
   const getCurrency = useCallback(async () => {
     try {
       let response = await axios.get(`http://data.fixer.io/api/latest?access_key=${API_KEY}`)
-      console.log(response.data.rates)
       const filtered = Object.keys(response.data.rates)
                               .filter(key => ['USD', 'EUR', 'GBP'].includes(key))
                               .reduce((obj, key) => {
@@ -39,13 +36,14 @@ const App = () => {
     getCurrency()
   }, [getCurrency])
 
+  
+
   const flexibleTotal = (curr) => {
     return setTotal(cartItems.reduce((sum,el) => {
       return sum + el.count*el.price*rates[curr]
     }, 0))
   }
   
-
   useEffect(() => {
    flexibleTotal(currency)
   }, [cartItems, currency])
@@ -85,23 +83,8 @@ const App = () => {
     setProducts(prevState => [...prevState, {...productToRemove[0], count: 0}])
     setCartItems(prevState => prevState.filter(product => product.id!==id))
   }
-
-/*   const productPrice = (cur) => {
-    setProducts(prevState => prevState.map(item => {
-      const fixedPrice = (item.price*rates[cur]).toFixed(2)
-      return {...item, price: fixedPrice}}
-      ))
-  }
-
-  useEffect(() => {
-   productPrice(currency)
-  }, [currency]) */
-
-
-
     
     const quantityInputHandler = useCallback((qty, item) => {
-      console.log('QTY: ', qty, 'ID: ', item, 'CART ITEMS: ', cartItems)
       const exist = cartItems.find(x=>x.id===item.id)
       if (exist.count!==qty) {
         setCartItems(

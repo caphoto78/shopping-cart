@@ -4,7 +4,6 @@ import {changeCurrSymbols} from '../../../helper'
 
 const TableBody = (props) => {
 
-  console.log('PROPS PROD COUNT:::', props.prod.count)
   
   const [isShown, setIsShown] = useState(false)
   const [quantity, setQuantity] = useState(1)
