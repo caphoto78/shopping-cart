@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import styles from './TableBody.module.scss'
+import {changeCurrSymbols} from '../../../helper'
 
 const TableBody = (props) => {
 
@@ -14,9 +15,7 @@ const TableBody = (props) => {
   }, [quantity, props])
 
   const handleMouseEnter = () => {
-    if(props.prod.description) {
       setIsShown(true)
-    }
   }
 
   const handleMouseLeave = () => {
@@ -31,6 +30,10 @@ const TableBody = (props) => {
     setQuantity(e.target.value)
   }
 
+  const productPrice = (cur) => {
+    return (props.prod.price*props.rates[cur]).toFixed(2)
+  }
+
   return (
     <tbody>
       <tr>
@@ -42,11 +45,11 @@ const TableBody = (props) => {
         </td>
         <td className={styles.product}>
           {props.prod.name}
-          <i 
+          {props.prod.description && <i 
             className="fas fa-info-circle"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-          ></i>
+          ></i>}
           <div className={isShown ? styles.bubble : styles.hidden}>
             <p>{props.prod.description}</p>
           </div>
@@ -60,7 +63,9 @@ const TableBody = (props) => {
             onChange={(e)=>quantityHandler(e)}
           />
         </td>
-        <td className={styles.right}>{props.prod.count}x${props.prod.price.toFixed(2)}</td>
+        <td className={styles.right}>
+          {props.prod.count} x {changeCurrSymbols(`${props.currency}`)}{productPrice(`${props.currency}`)}
+        </td>
       </tr>
     </tbody>
   )

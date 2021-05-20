@@ -13,6 +13,8 @@ const products = () => {
      return (
        <Product 
          product={product}
+         currency={props.currency}
+         rates={props.rates}
          key={index}
          addToCart={(item)=>props.addToCart(item)}
        />

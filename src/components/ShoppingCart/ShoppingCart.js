@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './ShoppingCart.module.scss'
 import TableBody from './TableBody/TableBody'
+import {changeCurrSymbols} from '../../helper'
 
 const ShoppingCart = (props) => {
 
@@ -13,6 +14,8 @@ const ShoppingCart = (props) => {
       <TableBody
         key={index}
         prod={prod}
+        currency={props.currency}
+        rates={props.rates}
         onDelete={(payload)=>props.onDelete(payload)}
         onQuantityInput={(qty, id)=>props.onQuantityInput(qty, id)}
       ></TableBody>
@@ -41,7 +44,7 @@ const ShoppingCart = (props) => {
 
             <tfoot>
               <tr>
-                <td colSpan="4">Total: ${props.total.toFixed(2)}</td>
+                <td colSpan="4">Total: {changeCurrSymbols(`${props.currency}`)}{props.total.toFixed(2)}</td>
               </tr>
             </tfoot>
 

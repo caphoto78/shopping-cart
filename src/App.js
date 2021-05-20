@@ -10,17 +10,45 @@ const App = () => {
   const [products, setProducts] = useState([])
   const [cartItems, setCartItems] = useState([])
   const [total, setTotal] = useState(0)
-  // const [id, setId] = useState(0)
+  const [currency, setCurrency] = useState('USD')
+  const [rates, setRates] = useState({})
 
-  console.log(products)
-  console.log('TOOOTAAAALLL: ', total)
-  console.log('CAAAARRRTTTT: ', cartItems)
+  console.log(rates)
+  console.log(currency)
+
+  const API_KEY = process.env.REACT_APP_API_KEY;
+  
+  const getCurrency = useCallback(async () => {
+    try {
+      let response = await axios.get(`http://data.fixer.io/api/latest?access_key=${API_KEY}`)
+      console.log(response.data.rates)
+      const filtered = Object.keys(response.data.rates)
+                              .filter(key => ['USD', 'EUR', 'GBP'].includes(key))
+                              .reduce((obj, key) => {
+                                obj[key] = response.data.rates[key];
+                                return obj
+                              }, {})
+      setRates({USD: 1, EUR: filtered.EUR/filtered.USD, GBP: filtered.GBP/filtered.USD})
+    }
+    catch (error) {
+      console.log('Error', error);
+    }
+  }, [API_KEY])
 
   useEffect(() => {
-    setTotal(cartItems.reduce((sum,el) => {
-      return sum + el.count*el.price
+    getCurrency()
+  }, [getCurrency])
+
+  const flexibleTotal = (curr) => {
+    return setTotal(cartItems.reduce((sum,el) => {
+      return sum + el.count*el.price*rates[curr]
     }, 0))
-  }, [cartItems])
+  }
+  
+
+  useEffect(() => {
+   flexibleTotal(currency)
+  }, [cartItems, currency])
 
   //GET THE PRODUCTS FROM THE EXTERNAL API
   const getProducts = useCallback(async () => {
@@ -58,6 +86,19 @@ const App = () => {
     setCartItems(prevState => prevState.filter(product => product.id!==id))
   }
 
+/*   const productPrice = (cur) => {
+    setProducts(prevState => prevState.map(item => {
+      const fixedPrice = (item.price*rates[cur]).toFixed(2)
+      return {...item, price: fixedPrice}}
+      ))
+  }
+
+  useEffect(() => {
+   productPrice(currency)
+  }, [currency]) */
+
+
+
     
     const quantityInputHandler = useCallback((qty, item) => {
       console.log('QTY: ', qty, 'ID: ', item, 'CART ITEMS: ', cartItems)
@@ -70,17 +111,37 @@ const App = () => {
       }
     }, [cartItems])
 
+    const handleCurrencySelector = (e) => {
+      setCurrency(e.target.value)
+    }
+
   return (
     <div className="App">
-      <h1>Checkout page</h1>
+      <div className="header">
+        <h1>Checkout page</h1>
+        <select
+          name="currency"
+          id="currency"
+          value={currency}
+          onChange={handleCurrencySelector}
+        >
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+        </select>
+      </div>
       <Main>
         <ProductList 
           products={products}
+          currency={currency}
+          rates={rates}
           addToCart={(id)=>addToCart(id)}
         />
         <ShoppingCart 
           cartItems={cartItems}
           total={total}
+          currency={currency}
+          rates={rates}
           onDelete={(id) => deleteHandler(id)}
           onQuantityInput={(qty, id)=>quantityInputHandler(qty, id)}
         />
