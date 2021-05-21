@@ -1,11 +1,11 @@
 import React from 'react'
 import styles from './ShoppingCart.module.scss'
 import TableBody from './TableBody/TableBody'
-import {changeCurrSymbols} from '../../helper'
+import { changeCurrSymbols } from '../../helper'
 
 const ShoppingCart = (props) => {
 
-  const {cartItems} = props
+  const { cartItems } = props
 
 
 
@@ -16,14 +16,18 @@ const ShoppingCart = (props) => {
         prod={prod}
         currency={props.currency}
         rates={props.rates}
-        onDelete={(payload)=>props.onDelete(payload)}
-        onQuantityInput={(qty, id)=>props.onQuantityInput(qty, id)}
+        onDelete={(payload) => props.onDelete(payload)}
+        onQuantityInput={(qty, id) => props.onQuantityInput(qty, id)}
       ></TableBody>
     )
   })
 
+  const handleContinue = () => {
+    alert(JSON.stringify(cartItems, null, 4))
+  }
+
   const shoppincCart = () => {
-    if (cartItems.length>0) {
+    if (cartItems.length > 0) {
       return (
         <section className={styles.shoppingCart}>
           <div className={styles.cartTitle}>
@@ -49,7 +53,10 @@ const ShoppingCart = (props) => {
             </tfoot>
 
           </table>
-          <button className={`${styles.button} ${styles.big}`}>Continue</button>
+          <button
+            className={`${styles.button} ${styles.big}`}
+            onClick={handleContinue}
+          >Continue</button>
         </section>
       )
     } else {
